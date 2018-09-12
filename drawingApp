@@ -1,0 +1,72 @@
+int size1 = 300;
+int size2 = 500;
+float[] sideBallx = new float [size1];
+float[] sideBally = new float [size1];
+float[] sideBallspeedx = new float [size1];
+float[] sideBallspeedy = new float [size1];
+float[] upBallx = new float [size2];
+float[] upBally = new float [size2];
+float[] upBallspeedx = new float [size2];
+float[] upBallspeedy = new float [size2];
+int blue=0;
+int red=0;
+
+void setup() {
+  size(displayWidth, displayHeight);
+  background(0);
+  for (int i =0; i < size1; i++) {
+    sideBallspeedx[i]= random(-15, 15);
+    sideBallspeedy[i]= random(-15, 15);
+    sideBallx[i]= random(5, width-5);
+    sideBally[i]= random(5, width -5);
+  }
+  for (int i =0; i < size2; i++ ) {
+    upBallspeedx[i]=random(-1, 1);
+    upBallspeedy[i]=random(-1, 1);
+    upBallx[i]= random(10, width-10);
+    upBally[i]= random( 10, width-10);
+  }
+}
+void draw() {
+  for (int i = 0; i < size1; i++) {
+    sideBallx[i]= sideBallx[i]+ sideBallspeedx[i];
+    sideBally[i]= sideBally[i]+ sideBallspeedy[i];
+    fill(mouseY, mouseX, blue);
+    ellipse(sideBallx[i], sideBally[i], 20, 20);
+    if (sideBallx[i]>= width-5|| sideBallx[i]<=5) {
+      sideBallspeedx[i]= -sideBallspeedx[i];
+    }
+    if (sideBally[i]>= height-5|| sideBally[i]>=5) {
+      sideBallspeedy[i]= -sideBallspeedy[i];
+    }
+  }
+  for (int i= 0; i < size2; i++) {
+    upBallx[i]=upBallx[i]+ upBallspeedx[i];
+    upBally[i]=upBally[i]+ upBallspeedy[i];
+    fill(red, mouseY, mouseX);
+    ellipse(upBallx[i], upBally[i], 10, 10);
+    if (upBallspeedx[i]>=width-10||upBallspeedx[i]<=10) {
+      upBallspeedx[i]= -upBallspeedx[i];
+    }
+    if (upBallspeedy[i]>=height-10||upBallspeedy[i]>=10) {
+      upBallspeedy[i]= -upBallspeedy[i];
+    }
+  }
+  textSize(45);
+  stroke(0, 0, 0);
+  fill(66, 88, 199);
+  //text("Red: "+red+" Blue: "+blue, width/2, height/2);
+}
+void keyPressed() {
+  if (key == 's'||key =='S') {
+    saveFrame("Project#1 By Stevenson#####.png");
+  }
+  if (key == 'a'||key == 'A') {
+    blue-=30;
+    red -=30;
+  }
+  if (key =='d'||key == 'D') {
+    blue +=30;
+    red +=30;
+  }
+}
